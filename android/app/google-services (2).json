@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "452277114566",
+    "firebase_url": "https://smart-irrigation-76f4e-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "smart-irrigation-76f4e",
+    "storage_bucket": "smart-irrigation-76f4e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:452277114566:android:fe4413d217ce98e333e9c7",
+        "android_client_info": {
+          "package_name": "com.example.flutter_tes"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "452277114566-dc203gej5pb5jajeg92qlo9j8ej65587.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD2fUq6UfvhcbL-WHS_lyoN_uUybIq-imA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "452277114566-dc203gej5pb5jajeg92qlo9j8ej65587.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "452277114566-dgdtlcdr80nk799fjrbi0cluo71o20vr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.flutterTes"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
