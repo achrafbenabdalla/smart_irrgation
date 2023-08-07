@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter_tes/UserList.dart';
 import 'package:flutter_tes/config.dart';
 import 'package:flutter_tes/constants.dart';
 import 'package:flutter_tes/controllers/MenuAppController.dart';
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
             .apply(bodyColor: Colors.white),
         canvasColor: secondaryColor,
       ),
-      home: SplashPage(),
+      home: UserList(),
     );
   }
 }
