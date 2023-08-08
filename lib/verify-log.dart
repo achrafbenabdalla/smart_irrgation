@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_tes/screens/main/main_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_tes/controllers/MenuAppController.dart';
+
+import 'controllers/MenuAppController.dart';
 import 'sign-in.dart';
 
 class VerificationPage extends StatefulWidget {
