@@ -118,7 +118,6 @@ class UserList extends StatelessWidget {
                      IconButton(
                        icon: Icon(Icons.edit),
                        onPressed: () {
-
                          _editUser(context,
                              document); // Call the _editUser method when "Edit" is pressed
                        },
@@ -242,7 +241,10 @@ class UserList extends StatelessWidget {
          text: document['LastName']);
      TextEditingController CINController = TextEditingController(
          text: document['CIN'].toString());
-
+     TextEditingController PasswordController = TextEditingController(
+         text: document['Password']);
+     TextEditingController ConfirmPassController = TextEditingController(
+         text: document['ConfirmPass']);
 
      // ... Add other TextEditingController for each field ...
 
@@ -290,7 +292,8 @@ class UserList extends StatelessWidget {
                  String updatedName = nameController.text;
                  String updatedLastName = lastNameController.text;
                  int updatedCIN = int.parse(CINController.text);
-
+                // String updatedPassword = PasswordController.text;
+                 //String updatedConfirmPass = ConfirmPassController.text;
 
 
                  // ... Get updated values from other TextFields ...
@@ -300,7 +303,8 @@ class UserList extends StatelessWidget {
                    'Name': updatedName,
                    'LastName': updatedLastName,
                    'CIN': updatedCIN,
-
+             //      'Password': updatedPassword,
+                //   'ConfirmPass': updatedConfirmPass
                    // ... Update other fields as needed ...
                  });
 
