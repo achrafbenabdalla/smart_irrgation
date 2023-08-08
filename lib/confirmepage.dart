@@ -1,12 +1,10 @@
 import 'package:flutter_tes/responsive.dart';
-
+import 'package:flutter_tes/screens/dashboard/components/header.dart';
+import 'package:flutter_tes/screens/dashboard/components/my_fields.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_tes/screens/dashboard/components/my_fieldsss.dart';
 import '../../constants.dart';
-import 'components/header.dart';
 
-
-class DashboardScreen extends StatelessWidget {
+class confirme extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -16,7 +14,7 @@ class DashboardScreen extends StatelessWidget {
         child: Column(
           children: [
             Header(
-              title: "Dashboard",
+              title: "confirmation page",
             ),
             SizedBox(height: defaultPadding),
             Row(
@@ -26,7 +24,7 @@ class DashboardScreen extends StatelessWidget {
                   flex: 5,
                   child: Column(
                     children: [
-                      MyFilesss(),
+                      Text("heloooooooo"),
                       SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),

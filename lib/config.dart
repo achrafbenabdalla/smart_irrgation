@@ -1,27 +1,28 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'dart:io' show Platform;
+
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
-import 'package:flutter_tes/sign-in.dart';
+
+
 
 import 'package:selectable_box/selectable_box.dart';
+
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tes/controllers/MenuAppController.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
 import 'screens/main/main_screen.dart';
 import 'constants.dart';
-import 'package:flutter_tes/responsive.dart';
-import 'package:flutter_tes/screens/dashboard/components/my_fields.dart';
 
-import '../../constants.dart';
+import 'package:flutter_tes/responsive.dart';
+
+
 import 'screens/dashboard/components/header.dart';
 
-import 'screens/dashboard/components/recent_files.dart';
-import 'screens/dashboard/components/storage_details.dart';
+
 
 class Config extends StatefulWidget {
   const Config({Key? key});
@@ -362,8 +363,8 @@ class _ConfigState extends State<Config> {
                                           MainAxisAlignment.center,
                                       children: [
                                         SelectableBox(
-                                            height: 180,
-                                            width: 194,
+                                            height: 170,
+                                            width: 176,
                                             color: secondaryColor,
                                             selectedColor: Color(0xff259e73),
                                             borderColor: Color(0xff259e73),
@@ -425,8 +426,8 @@ class _ConfigState extends State<Config> {
                                               ),
                                             )),
                                         SelectableBox(
-                                            height: 180,
-                                            width: 194,
+                                            height: 170,
+                                            width: 170,
                                             color: secondaryColor,
                                             selectedColor: Color(0xff259e73),
                                             borderColor: Color(0xff259e73),
@@ -487,8 +488,8 @@ class _ConfigState extends State<Config> {
                                     Row(
                                       children: [
                                         SelectableBox(
-                                            height: 180,
-                                            width: 194,
+                                            height: 170,
+                                            width: 170,
                                             color: secondaryColor,
                                             selectedColor: Color(0xff259e73),
                                             borderColor: Color(0xff259e73),
@@ -551,8 +552,8 @@ class _ConfigState extends State<Config> {
                                               ),
                                             )),
                                         SelectableBox(
-                                            height: 180,
-                                            width: 194,
+                                            height: 170,
+                                            width: 170,
                                             color: secondaryColor,
                                             selectedColor: Color(0xff259e73),
                                             borderColor: Color(0xff259e73),
@@ -627,7 +628,7 @@ class _ConfigState extends State<Config> {
                                       FirebaseAuth.instance.currentUser;
                                   String userID = user!.uid;
 
-                                  await postsRef.doc(userID).set({
+                                  await postsRef.doc(userID).update({
                                     "tempurature": temp,
                                     "conductivity": cond,
                                     "oxygen": oxy,

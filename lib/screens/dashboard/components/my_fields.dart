@@ -1,4 +1,7 @@
+import 'dart:html';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:flutter_tes/sign-in.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -54,7 +57,103 @@ class _MyFilesState extends State<MyFiles> {
   void updateData(data) {
     setState(() {
       this.data = data;
+
       demoMyFiles = fillList();
+      if (data != null) {
+        if (settingsData['tempurature'] == true) {
+          if (data['temp'] > 50) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    icon: Icon(
+                      Icons.error_outline_rounded,
+                    ),
+                    content: Text("the temperateur is too hight"),
+                    backgroundColor: Color(0xFF212332),
+                    shadowColor: Color.fromARGB(255, 143, 8, 8),
+                    actions: [
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Close'),
+                          style: ElevatedButton.styleFrom(
+                            primary: Color.fromARGB(255, 143, 3, 3),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                });
+          }
+        }
+
+        // if (settingsData['oxygen'] == true) {
+        //   if (data['oxy'] > 70) {
+        //     showDialog(
+        //         context: context,
+        //         builder: (context) {
+        //           return AlertDialog(
+        //             icon: Icon(
+        //               Icons.error_outline_rounded,
+        //             ),
+        //             content: Text(
+        //               "The Oxygéne level  is too hight",
+        //             ),
+        //             backgroundColor: Color(0xFF212332),
+        //             shadowColor: Color.fromARGB(255, 143, 8, 8),
+        //             actions: [
+        //               Center(
+        //                 child: ElevatedButton(
+        //                   onPressed: () {
+        //                     Navigator.pop(context);
+        //                   },
+        //                   child: Text('Close'),
+        //                   style: ElevatedButton.styleFrom(
+        //                     primary: Color.fromARGB(255, 143, 3, 3),
+        //                   ),
+        //                 ),
+        //               ),
+        //             ],
+        //           );
+        //         });
+        //   }
+        // }
+
+        if (settingsData['ph'] == true) {
+          if (data['ph'] > 14 || data['ph'] <= 0) {
+            showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    icon: Icon(
+                      Icons.error_outline_rounded,
+                    ),
+                    content: Text(
+                      "The are somthing wrong with the PH value ",
+                    ),
+                    backgroundColor: Color(0xFF212332),
+                    shadowColor: Color.fromARGB(255, 143, 8, 8),
+                    actions: [
+                      Center(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text('Close'),
+                          style: ElevatedButton.styleFrom(
+                            primary: Color.fromARGB(255, 143, 3, 3),
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                });
+          }
+        }
+      }
     });
   }
 
@@ -117,6 +216,7 @@ class _MyFilesState extends State<MyFiles> {
   @override
   Widget build(BuildContext context) {
     final Size _size = MediaQuery.of(context).size;
+
     return Column(
       children: [
         SizedBox(height: defaultPadding),
