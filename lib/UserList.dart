@@ -2,6 +2,8 @@
 import 'package:flutter_tes/formsUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
+import 'confirmedUserAccount.dart';
+
 class UserList extends StatelessWidget {
   void _onButtonPressed(BuildContext context) async {
     final result = await Navigator.push(
@@ -101,7 +103,19 @@ class UserList extends StatelessWidget {
                                    actions: [
                                      TextButton(
                                        onPressed: () {
-                                         Navigator.pop(context); // Close the dialog
+                                         Navigator.pop(context);
+                                         Navigator.push(
+                                           context,
+                                           MaterialPageRoute(
+                                             builder: (context) => ConfirmedUserAccount(
+                                               Name: data['Name'],
+                                               LastName: data['LastName'],
+                                               CIN: data['CIN'].toString(), // Convert the int to a String
+
+                                               // Add other user information as arguments here
+                                             ),
+                                           ),
+                                         );
                                        },
                                        child: Text('OK'),
                                      ),

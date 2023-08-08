@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:flutter_tes/ConfirmedList.dart';
+import 'package:flutter_tes/UserList.dart';
 import 'package:flutter_tes/sign-in-admin.dart';
 import 'package:flutter_tes/verify-log.dart';
 import 'package:selectable_box/selectable_box.dart';
@@ -162,13 +164,13 @@ class _mainpageState extends State<mainpage> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => VerificationPage()),
+                            builder: (context) => ConfirmedList()),
                       );
                     } else {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SignInAdmin()));
+                              builder: (context) => UserList()));
                     }
                   },
                   child: Text('Confirmer', style: TextStyle(fontSize: 19))),
