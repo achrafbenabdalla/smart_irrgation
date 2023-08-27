@@ -196,6 +196,7 @@ class _SignInState extends State<SignIn> {
                       FirebaseAuth auth = FirebaseAuth.instance;
                       try {
                         UserCredential userCredential = await FirebaseAuth
+                        
                             .instance
                             .signInWithEmailAndPassword(
                           email: _emailController.text,

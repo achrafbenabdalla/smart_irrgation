@@ -118,7 +118,7 @@ class _MyFilesssState extends State<MyFilesss> {
                 opacity: 0.8, //by default its 1.0
                 padding: EdgeInsets.all(20));
           }
-          if (settingsData['pH'] == true && 0 < pH || pH < 14) {
+          if (settingsData['pH'] == true && 0 < pH || pH > 14) {
             FlashToast.showFlashToast(
                 context: context,
                 title: "worning ",
