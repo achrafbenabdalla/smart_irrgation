@@ -1,11 +1,16 @@
 {
   "hosting": {
-    "site": "flutterbysoulayma-22",
-    "public": "build/web",
+    "public": "webtodeploy",
     "ignore": [
       "firebase.json",
       "**/.*",
       "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
     ]
   }
 }
