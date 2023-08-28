@@ -1,19 +1,12 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import 'package:flutter_tes/forget_pw.dart';
-
-import 'package:flutter_tes/screens/main/main_screen.dart';
-import 'package:flutter_tes/sign-up.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_tes/splashscreen.dart';
-import 'package:provider/provider.dart';
-import 'constants.dart';
-import 'package:flutter_tes/controllers/MenuAppController.dart';
-import 'package:auth_buttons/auth_buttons.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_tes/DahUser.dart';
+import 'package:flutter_tes/formsUser.dart';
+import 'package:flutter_tes/screens/dashboard/dashboard_screen.dart';
+import 'package:flutter_tes/showInfoUser.dart';
+import 'PermissionDeniedPage.dart';
+import 'WaitingValidationPage.dart';
+import 'dash.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({Key? key});
@@ -23,28 +16,38 @@ class SignIn extends StatefulWidget {
 }
 
 class _SignInState extends State<SignIn> {
-  dynamic data;
-  Map<String, dynamic> settingsData = {};
   late bool _passwordVisible;
+
+  TextEditingController nameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController cinController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  bool isAdmin = false;
+  bool isAccepted = false;
+
+  late bool includepH ;
+  late bool includeConductivity ;
+  late bool includeOxygen ;
+  late bool includeTemperature;
+
+  late String name;
+  late String lastName;
+  late String cin;
+  late String password;
+
 
   @override
   void initState() {
     _passwordVisible = false;
-
     super.initState();
   }
-
-  TextEditingController _emailController = new TextEditingController();
-  TextEditingController _passwordController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          'Sign-In Form',
-          style: TextStyle(fontFamily: AppleAuthProvider.APPLE_SIGN_IN_METHOD),
-        ),
+        title: Text('Sign-In an existing user'),
         backgroundColor: Color(0xff259e73),
       ),
       body: SingleChildScrollView(
@@ -54,7 +57,7 @@ class _SignInState extends State<SignIn> {
             width: 450,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: secondaryColor,
+              //color: secondaryColor,
             ),
             child: Center(
               child: Column(
@@ -70,46 +73,60 @@ class _SignInState extends State<SignIn> {
                       ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 7),
-                    child: Text(
-                      'Sign In',
-                      style: TextStyle(
-                          fontSize: 30,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white),
-                    ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          // Handle Home navigation
+                        },
+                        child: Text('Sign in '),
+                      ),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => formsUser(
+                                   ),
+                            ),
+                          );
+                          // Handle Profile navigation
+                        },
+                        child: Text('Sign Up '),
+                      ),
+
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 30),
-                    child: Text(
-                      'Sign in using your email and password',
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w300),
-                    ),
+                  SizedBox(
+                    height: 20,
                   ),
                   SizedBox(
                     width: 300,
                     child: Padding(
                       padding: const EdgeInsets.only(bottom: 15),
                       child: TextField(
-                        controller: _emailController,
+                        controller: nameController,
                         decoration: InputDecoration(
                           enabledBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 3, color: Color(0xff259e73)),
+                            borderSide: BorderSide(
+                              width: 3,
+                              color: Color(0xff259e73),
+                            ),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide:
-                                BorderSide(width: 3, color: Color(0xff259e73)),
+                            borderSide: BorderSide(
+                              width: 3,
+                              color: Color(0xff259e73),
+                            ),
                           ),
-                          labelText: 'Email',
-                          hintText: 'Enter Your Email',
+                          labelText: 'Name',
+                          hintText: 'Enter Your Name',
                           labelStyle: TextStyle(
                             color: Color(0xff259e73),
                           ),
                           prefixIcon: Icon(
-                            Icons.email,
+                            Icons.person,
                             color: Color(0xff259e73),
                           ),
                         ),
@@ -119,65 +136,62 @@ class _SignInState extends State<SignIn> {
                   SizedBox(
                     width: 300,
                     child: TextField(
-                      controller: _passwordController,
-                      keyboardType: TextInputType.text,
-                      obscureText: !_passwordVisible,
-                      enableSuggestions: false,
-                      autocorrect: false,
+                      controller: lastNameController,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 3, color: Color(0xff259e73)),
+                          borderSide: BorderSide(
+                            width: 3,
+                            color: Color(0xff259e73),
+                          ),
                         ),
-                        labelText: 'Password',
-                        hintText: 'Enter Your Password',
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 3,
+                            color: Color(0xff259e73),
+                          ),
+                        ),
+                        labelText: 'Last Name',
+                        hintText: 'Enter Your Last Name',
                         labelStyle: TextStyle(
                           color: Color(0xff259e73),
                         ),
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
+                        prefixIcon: Icon(
+                          Icons.person,
+                          color: Color(0xff259e73),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  SizedBox(
+                    width: 300,
+                    child: TextField(
+                      controller: passwordController,
+                      decoration: InputDecoration(
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 3,
                             color: Color(0xff259e73),
                           ),
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                            width: 3,
+                            color: Color(0xff259e73),
+                          ),
+                        ),
+                        labelText: 'Password',
+                        hintText: 'Enter Your Last Password',
+                        labelStyle: TextStyle(
+                          color: Color(0xff259e73),
                         ),
                         prefixIcon: Icon(
                           Icons.password,
                           color: Color(0xff259e73),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderSide:
-                              BorderSide(width: 3, color: Color(0xff259e73)),
-                        ),
                       ),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 65),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => forget_pw(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'forget password ?',
-                            style: TextStyle(color: Color(0xff259e73)),
-                          ),
-                        ),
-                      ],
                     ),
                   ),
                   SizedBox(
@@ -193,187 +207,91 @@ class _SignInState extends State<SignIn> {
                       fixedSize: Size(220, 50),
                     ),
                     onPressed: () async {
-                      FirebaseAuth auth = FirebaseAuth.instance;
-                      try {
-                        UserCredential userCredential = await FirebaseAuth
-                            .instance
-                            .signInWithEmailAndPassword(
-                          email: _emailController.text,
-                          password: _passwordController.text,
-                        );
-                      } on FirebaseAuthException catch (e) {
-                        if (e.code == 'user-not-found') {
-                          print('No user found for that email.');
-                        } else if (e.code == 'wrong-password') {
-                          print('Wrong password provided for that user.');
-                        }
-                      }
-                      FirebaseAuth.instance.authStateChanges().listen(
-                        (User? user) async {
-                          if (user == null) {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  icon: Icon(Icons.error_outline_rounded),
-                                  content: Text("Wrong password or email!"),
-                                  backgroundColor: Color(0xFF212332),
-                                  shadowColor: Color.fromARGB(255, 143, 8, 8),
-                                  actions: [
-                                    Center(
-                                      child: ElevatedButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: Text('Close'),
-                                        style: ElevatedButton.styleFrom(
-                                          primary:
-                                              Color.fromARGB(255, 143, 3, 3),
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          } else {
-                            User? user = FirebaseAuth.instance.currentUser;
-                            if (user != null) {
-                              var userID = user.uid;
-                              DocumentSnapshot<Map<String, dynamic>>
-                                  documentSnapshot = await FirebaseFirestore
-                                      .instance
-                                      .collection('users')
-                                      .doc(userID)
-                                      .get();
+    final name = nameController.text;
+    final lastName = lastNameController.text;
+    final password = passwordController.text;
 
-                              if (documentSnapshot.exists) {
-                                setState(() {
-                                  settingsData = documentSnapshot.data()!;
-                                });
-                                print(settingsData);
-                              }
-                            }
+    QuerySnapshot validatedUserSnapshot =
+    await FirebaseFirestore.instance
+        .collection('validatedUsers')
+        .where('name', isEqualTo: name)
+        .where('lastName', isEqualTo: lastName)
+        .where('password', isEqualTo: password)
+        .get();
 
-                            print(settingsData['role']);
-                            if (settingsData['role'] == 'admin') {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SplashPage(),
-                                ),
-                              );
-                            } else {
-                              if (settingsData['role'] == null) {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => MultiProvider(
-                                      providers: [
-                                        ChangeNotifierProvider(
-                                          create: (context) =>
-                                              MenuAppController(),
-                                        ),
-                                      ],
-                                      child: MainScreen(),
-                                    ),
-                                  ),
-                                );
-                              }
-                            }
-                          }
-                        },
-                      );
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  GoogleAuthButton(
-                    onPressed: () async {
-                      GoogleSignIn _googleSignIn =
-                          GoogleSignIn(scopes: ['email']);
+    if (validatedUserSnapshot.size > 0) {
+    final validatedUserData = validatedUserSnapshot.docs[0]
+        .data() as Map<String, dynamic>;
+    final etat = validatedUserData['etat'];
 
-                      GoogleSignInAccount? googleAccount =
-                          await _googleSignIn.signIn();
-                      if (googleAccount != null) {
-                        GoogleSignInAuthentication googleAuth =
-                            await googleAccount.authentication;
-                        OAuthCredential credential =
-                            GoogleAuthProvider.credential(
-                          accessToken: googleAuth.accessToken,
-                          idToken: googleAuth.idToken,
-                        );
-                        UserCredential userCredential = await FirebaseAuth
-                            .instance
-                            .signInWithCredential(credential);
-                        User? user = userCredential.user;
-                        if (user != null) {
-                          String uid = user.uid;
+    if (etat == 'null') {
+    Navigator.push(
+    context,
+    MaterialPageRoute(
+    builder: (context) => ShowUserDetails(
+    name: nameController.text,
+    cin: cinController.text,
+    lastName: lastNameController.text,
+    password: passwordController.text,
+    isAdmin: isAdmin,
+    isAccepted: isAccepted,
+    includepH: false,
+    includeOxygen: false,
+    includeConductivity: false,
+    includeTemperature: false,
+    ),
+    ),
+    );
+    }
+    QuerySnapshot demandSnapshot = await FirebaseFirestore.instance
+        .collection('demandesensors')
+        .where('name', isEqualTo: name)
+        .where('lastName', isEqualTo: lastName)
+        .where('password', isEqualTo: password)
+        .get();
+    // Check if sensor request exists
+    if (demandSnapshot.size > 0) {
+    final demandData = demandSnapshot.docs[0].data() as Map<String, dynamic>;
+    final etat = demandData['etat'] ?? 'N/A';
+    if (etat == 'accepted') {
+    final includeTemperatureValue =
+    validatedUserData['includeTemperature'] ?? false;
+    final includeOxygenValue = validatedUserData['includeOxygen'] ?? false;
+    final includepHValue = validatedUserData['includepH'] ?? false;
+    final includeConductivityValue =
+    validatedUserData['includeConductivity'] ?? false;
 
-                          // Create a document in Firestore with the same UID
-                          await FirebaseFirestore.instance
-                              .collection('users')
-                              .doc(uid)
-                              .update({
-                            'email': user.email,
-                            // Add any additional user data you want to store
-                          });
-
-                          // Navigate to the main screen or perform any necessary operations
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => MultiProvider(
-                                providers: [
-                                  ChangeNotifierProvider(
-                                    create: (context) => MenuAppController(),
-                                  ),
-                                ],
-                                child: MainScreen(),
-                              ),
-                            ),
-                          );
-                        }
-                      }
-                    },
-                    style: AuthButtonStyle(
-                      buttonColor: Color(0xff259e73),
-                      width: 220,
-                      height: 50,
-                      textStyle: TextStyle(fontSize: 15, color: Colors.white),
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Don't have an account ?"),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      new InkWell(
-                        child: new Text(
-                          'Sign Up',
-                          style: TextStyle(color: Color(0xff259e73)),
-                        ),
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => SignUp()),
-                          );
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+    Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+    builder: (context) => DahUser(
+    name: name,
+    lastName: lastName,
+    password: password,
+    includeTemperature: includeTemperatureValue,
+    includeConductivity: includeConductivityValue,
+    includeOxygen: includeOxygenValue,
+    includepH: includepHValue,
+    cin: '', // Set this based on your logic
+    ),
+    ),
+    );
+    } else if (etat == 'rejected') {
+    Navigator.pushReplacement(
+    context,
+    MaterialPageRoute(
+    builder: (context) => PermissionDeniedPage(),
+    ),
+    );
+    }
+    }
+    }})                ],
               ),
             ),
           ),
         ),
       ),
-    );
-  }
-}
+
+    );  }
+
+                  }

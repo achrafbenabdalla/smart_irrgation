@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_tes/config.dart';
+import 'package:flutter_tes/screens/dashboard/config.dart';
 import 'package:flutter_tes/screens/main/configmain.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_tes/controllers/MenuAppController.dart';

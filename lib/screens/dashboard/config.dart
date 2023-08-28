@@ -14,13 +14,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_tes/controllers/MenuAppController.dart';
 import 'package:provider/provider.dart';
 
-import 'screens/main/main_screen.dart';
-import 'constants.dart';
+import '../main/main_screen.dart';
+import '../../constants.dart';
 
 import 'package:flutter_tes/responsive.dart';
 
 
-import 'screens/dashboard/components/header.dart';
+import 'components/header.dart';
 
 
 

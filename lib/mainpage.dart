@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tes/ConfirmedList.dart';
 import 'package:flutter_tes/UserList.dart';
 import 'package:flutter_tes/sign-in-admin.dart';
+import 'package:flutter_tes/sign-in.dart';
 import 'package:flutter_tes/verify-log.dart';
 import 'package:selectable_box/selectable_box.dart';
 import 'constants.dart';
@@ -85,7 +86,7 @@ class _mainpageState extends State<mainpage> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 4),
                                 child: Text(
-                                  'user',
+                                  ' se inscrire',
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.w600,
@@ -140,7 +141,7 @@ class _mainpageState extends State<mainpage> {
                               Padding(
                                 padding: const EdgeInsets.only(left: 4),
                                 child: Text(
-                                  'admin',
+                                  'Se Connecter',
                                   style: TextStyle(
                                       fontSize: 22,
                                       fontWeight: FontWeight.w600,
@@ -162,9 +163,10 @@ class _mainpageState extends State<mainpage> {
                   onPressed: () async {
                     if (user == true) {
                       Navigator.push(
-                        context,
+                        context
+                          ,
                         MaterialPageRoute(
-                            builder: (context) => ConfirmedList()),
+                            builder: (context) => SignIn()),
                       );
                     } else {
                       Navigator.push(
