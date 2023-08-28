@@ -99,7 +99,15 @@ class UserList extends StatelessWidget {
                                builder: (BuildContext context) {
                                  return AlertDialog(
                                    title: Text('User Validated'),
-                                   content: Text('The user (${data['Name']} ${data['LastName']}) has been validated.'),
+                                   content: Column(
+                                     mainAxisSize: MainAxisSize.min,
+                                     crossAxisAlignment: CrossAxisAlignment.start,
+                                     children: [
+                                       Text('The user (${data['Name']} ${data['LastName']}) has been validated.'),
+                                       SizedBox(height: 8),
+                                       Text('Password: ${'*' * data['Password'].length}'),  // Obscured password
+                                     ],
+                                   ),
                                    actions: [
                                      TextButton(
                                        onPressed: () {
@@ -110,7 +118,11 @@ class UserList extends StatelessWidget {
                                              builder: (context) => ConfirmedUserAccount(
                                                Name: data['Name'],
                                                LastName: data['LastName'],
-                                               CIN: data['CIN'].toString(), // Convert the int to a String
+                                               CIN: data['CIN'].toString(),
+                                               password: data['Password'],  // Pass the password here
+
+                                               // Convert the int to a String
+
 
                                                // Add other user information as arguments here
                                              ),

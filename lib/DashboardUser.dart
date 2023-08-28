@@ -4,8 +4,8 @@ import 'package:flutter_tes/UserList.dart';
 import 'package:flutter_tes/authAdmin.dart';
 
 
-class DashboardPageAdmin extends StatelessWidget {
-  DashboardPageAdmin(AuthAdmin authAdmin);
+class DashboardPageUser extends StatelessWidget {
+  DashboardPageUser(AuthAdmin authAdmin);
 
 
   @override

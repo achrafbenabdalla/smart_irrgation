@@ -1,36 +1,58 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tes/ConfirmedList.dart';
+import 'package:flutter_tes/UserList.dart';
 
 class ConfirmedUserAccount extends StatelessWidget {
+  final String password;
+
   final TextEditingController nameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
   final TextEditingController cinController = TextEditingController();
-
+  final TextEditingController passwordController = TextEditingController();
   ConfirmedUserAccount({
     required this.Name,
     required this.LastName,
     required this.CIN,
+    required this.password
+
+
   }) {
     nameController.text = Name;
     lastNameController.text = LastName;
     cinController.text = CIN;
+    passwordController.text = password;
   }
 
   void _submitUserInfo(BuildContext context) async {
     String name = nameController.text;
     String lastName = lastNameController.text;
     String cin = cinController.text;
+    String password = passwordController.text;
 
     // Create a new Firestore document in the validatedUsers collection
     await FirebaseFirestore.instance.collection('validatedUsers').add({
       'name': name,
       'lastName': lastName,
       'cin': cin,
+      'password': password,
+      'etat': "null",
     });
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+        builder: (context) => UserList()));
 
-    // Optionally, you can show a confirmation message or navigate back to the previous screen
-    Navigator.pop(context); // Navigates back to the previous screen
+
   }
+    // Optionally, you can show a confirmation message or navigate back to the previous screen
+   // _onButtonPressed(context);  }
+ //// void _onButtonPressed(BuildContext context) async {
+  //  final result = await Navigator.push(
+    //  context,
+   //   MaterialPageRoute(builder: (context) => ConfirmedList()),
+   // );
+
 
   final String Name;
   final String LastName;
@@ -75,6 +97,14 @@ class ConfirmedUserAccount extends StatelessWidget {
                         Text(CIN),
                       ],
                     ),
+                    Row(
+                      children: [
+                        Text("password:"),
+                        SizedBox(width: 8),
+                        Text(password),
+                      ],
+                    ),
+                    SizedBox(height: 8),
                   ],
                 ),
               ),

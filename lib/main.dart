@@ -1,20 +1,21 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_tes/UserList.dart';
-import 'package:flutter_tes/config.dart';
+import 'package:flutter_tes/authAdmin.dart';
+import 'package:flutter_tes/screens/dashboard/config.dart';
 import 'package:flutter_tes/constants.dart';
 import 'package:flutter_tes/controllers/MenuAppController.dart';
 import 'package:flutter_tes/mainpage.dart';
 import 'package:flutter_tes/screens/main/main_screen.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_tes/sign-in-admin.dart';
+import 'package:flutter_tes/sign-in.dart';
 import 'package:flutter_tes/splashscreen.dart';
 import 'package:flutter_tes/verify-log.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 
-Future<void> main() async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -24,7 +25,6 @@ Future<void> main() async {
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
             .apply(bodyColor: Colors.white),
         canvasColor: secondaryColor,
       ),
-      home: mainpage(),
+      home:  AuthAdminPage(name: '', mail: '', password: '',),
     );
   }
 }
