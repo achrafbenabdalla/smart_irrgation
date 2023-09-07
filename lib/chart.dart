@@ -353,6 +353,17 @@ class BarChartSample1State extends State<BarChartSample1> {
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
+
+
+
+
+
+
+
+
+
+
+              
               colors: [
                 ColorTween(begin: gradientColors[0], end: gradientColors[1])
                     .lerp(0.2)!
