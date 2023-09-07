@@ -76,7 +76,7 @@ class _MyFilesssState extends State<MyFilesss> {
 
         // Check for conditions and display alerts if needed
         if (sensorData != null) {
-          final temperature = sensorData?['temp'];
+          final temperature = 1;
           final pH = sensorData?['pH'];
           final conductivity = sensorData?['conductivity'];
           final oxy = sensorData?['oxy'];

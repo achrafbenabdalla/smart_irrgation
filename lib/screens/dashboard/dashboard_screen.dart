@@ -2,9 +2,9 @@ import 'package:flutter_tes/responsive.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_tes/screens/dashboard/components/my_fieldsss.dart';
+import '../../chart.dart';
 import '../../constants.dart';
 import 'components/header.dart';
-
 
 class DashboardScreen extends StatelessWidget {
   @override
@@ -30,6 +30,8 @@ class DashboardScreen extends StatelessWidget {
                       SizedBox(height: defaultPadding),
                       if (Responsive.isMobile(context))
                         SizedBox(height: defaultPadding),
+                      Container(
+                          width: 600, height: 600, child: BarChartSample1())
                     ],
                   ),
                 ),

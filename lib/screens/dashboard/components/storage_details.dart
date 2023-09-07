@@ -29,7 +29,7 @@ class StorageDetails extends StatelessWidget {
             ),
           ),
           SizedBox(height: defaultPadding),
-          chart(),
+          // BarChartSample1(),
           StorageInfoCard(
             svgSrc: "assets/icons/Documents.svg",
             title: "Documents Files",
