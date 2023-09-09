@@ -228,17 +228,8 @@ class _SignInState extends State<SignIn> {
     Navigator.push(
     context,
     MaterialPageRoute(
-    builder: (context) => ShowUserDetails(
-    name: nameController.text,
-    cin: cinController.text,
-    lastName: lastNameController.text,
-    password: passwordController.text,
-    isAdmin: isAdmin,
-    isAccepted: isAccepted,
-    includepH: false,
-    includeOxygen: false,
-    includeConductivity: false,
-    includeTemperature: false,
+    builder: (context) => WaitingValidationPage(
+
     ),
     ),
     );

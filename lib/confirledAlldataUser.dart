@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_tes/sign-in.dart';
 
 class ConfirmedDataPage extends StatelessWidget {
   final String name;
@@ -50,6 +51,19 @@ class ConfirmedDataPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Confirmed Data'),
         backgroundColor: Color(0xff259e73),
+        actions: [
+          // Add a logout button to the top-right corner of the AppBar
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignIn()),
+              );              // Implement your logout logic here
+              // You can navigate to the login screen or perform any other logout actions
+            },
+          ),
+        ],
       ),
       body: Center(
         // Display your confirmed data with a beautiful design
@@ -80,6 +94,37 @@ class ConfirmedDataPage extends StatelessWidget {
               leading: Icon(Icons.phonelink),
               title: Text('Include PH: $includepH'),
             ),
+            ListTile(
+              leading: Icon(Icons.location_city),
+              title: Text('Include PH: $city'),
+            ),
+            ListTile(
+              leading: Icon(Icons.cabin),
+              title: Text('Include PH: $country'),
+            ),
+            ListTile(
+              leading: Icon(Icons.square_sharp),
+              title: Text('Include PH: $squareMeters'),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                // Implement the logic to navigate to the dashboard page here
+                // You can use Navigator to push a new route to the dashboard
+              },
+              style: ElevatedButton.styleFrom(
+                primary: Colors.blue, // Set the button's background color
+                onPrimary: Colors.white, // Set the text color
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12), // Adjust padding as needed
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8.0), // Set button's border radius
+                ),
+              ),
+              child: Text(
+                'Go to Dashboard',
+                style: TextStyle(fontSize: 18),
+              ),
+            )
+
             // Add more ListTile widgets for other data
             // You can customize the design as you want
             // You can customize the design as you want

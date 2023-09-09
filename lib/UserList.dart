@@ -1,6 +1,7 @@
  import 'package:flutter/material.dart';
 import 'package:flutter_tes/formsUser.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_tes/sign-in-admin.dart';
 
 import 'confirmedUserAccount.dart';
 
@@ -19,6 +20,19 @@ class UserList extends StatelessWidget {
       appBar: AppBar(
         title: Text("List of USER"),
         backgroundColor: Color(0xff259e73),
+        actions: [
+          // Add a logout button to the top-right corner of the AppBar
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignInAdmin()),
+              );              // Implement your logout logic here
+              // You can navigate to the login screen or perform any other logout actions
+            },
+          ),
+        ],
       ),
       body: Stack(
         children: [

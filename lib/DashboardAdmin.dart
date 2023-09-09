@@ -3,6 +3,7 @@ import 'package:flutter_tes/ConfigurationList.dart';
 import 'package:flutter_tes/ListOfDemandeSensorsPage.dart';
 import 'package:flutter_tes/UserList.dart';
 import 'package:flutter_tes/authAdmin.dart';
+import 'package:flutter_tes/sign-in-admin.dart';
 
 
 class DashboardPageAdmin extends StatelessWidget {
@@ -15,7 +16,19 @@ class DashboardPageAdmin extends StatelessWidget {
       appBar: AppBar(
         title: Text('Admin Dashboard'),
         backgroundColor: Color(0xff259e73),
-
+        actions: [
+          // Add a logout button to the top-right corner of the AppBar
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignInAdmin()),
+              );              // Implement your logout logic here
+              // You can navigate to the login screen or perform any other logout actions
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Row(

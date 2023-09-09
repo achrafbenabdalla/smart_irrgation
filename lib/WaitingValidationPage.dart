@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tes/ValidatedSensorsPage.dart';
+import 'package:flutter_tes/sign-in.dart';
 
 class WaitingValidationPage extends StatelessWidget {
   @override
@@ -38,7 +39,12 @@ class WaitingValidationPage extends StatelessWidget {
             SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                Navigator.pop(context); // Navigate back to the previous screen
+                Navigator.pop(context);
+                // Navigate back to the previous screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SignIn()),
+                );
               },
               child: Text('Go Back'),
               style: ElevatedButton.styleFrom(

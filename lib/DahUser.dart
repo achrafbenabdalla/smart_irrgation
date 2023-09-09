@@ -11,6 +11,7 @@ import 'package:flutter_tes/forget_pw.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_tes/showInfoUser.dart';
+import 'package:flutter_tes/sign-in.dart';
 import 'package:flutter_tes/splashscreen.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 
@@ -221,28 +222,47 @@ class _DahUserState extends State<DahUser> {
                                                 leading: Icon(Icons.square_foot),
                                                 title: Text('Square Meters: ${enteredValues['squareMeters']}'),
                                               ),
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  // Handle confirmation action
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              // Create a map with the confirmed configuration data
+                                              Map<String, dynamic> confirmedConfigData = {
+                                                'name': widget.name,
+                                                'lastName': widget.lastName,
+                                                'cin': widget.cin,
+                                                'includepH': widget.includepH,
+                                                'includeOxygen': widget.includeOxygen,
+                                                'includeConductivity': widget.includeConductivity,
+                                                'includeTemperature': widget.includeTemperature,
+                                                'country': enteredValues['country'],
+                                                'city': enteredValues['city'],
+                                                'squareMeters': enteredValues['squareMeters'],
+                                              };
 
-                                                      Navigator.of(context).pop(); // Close the dialog
-                                                      Navigator.of(context).push(MaterialPageRoute(
-                                                    builder: (context) => ConfirmedDataPage(
-                                                      name: widget.name,
-                                                      lastName: widget.lastName,
-                                                      cin: widget.cin,
-                                                      includepH: widget.includepH,
-                                                      includeOxygen: widget.includeOxygen,
-                                                      includeConductivity: widget.includeConductivity,
-                                                      includeTemperature: widget.includeTemperature,
-                                                      country: enteredValues['country'],
-                                                      city: enteredValues['city'],
-                                                      squareMeters: enteredValues['squareMeters'],
-                                                    ),
-                                                  ));
-                                                },
-                                                child: Text("Confirm"),
-                                              ), ElevatedButton(
+                                              // Add the data to the 'confirmedConfig' collection
+                                              await FirebaseFirestore.instance.collection('confirmedConfig').add(confirmedConfigData);
+
+                                              // Close the dialog
+                                              Navigator.of(context).pop();
+
+                                              // Navigate to the ConfirmedDataPage
+                                              Navigator.of(context).push(MaterialPageRoute(
+                                                builder: (context) => ConfirmedDataPage(
+                                                  name: widget.name,
+                                                  lastName: widget.lastName,
+                                                  cin: widget.cin,
+                                                  includepH: widget.includepH,
+                                                  includeOxygen: widget.includeOxygen,
+                                                  includeConductivity: widget.includeConductivity,
+                                                  includeTemperature: widget.includeTemperature,
+                                                  country: enteredValues['country'],
+                                                  city: enteredValues['city'],
+                                                  squareMeters: enteredValues['squareMeters'],
+                                                ),
+                                              ));
+                                            },
+                                            child: Text("Confirm"),
+                                          ),
+                                               ElevatedButton(
                                                 onPressed: () {
                                                   // Handle confirmation action
                                                   ScaffoldMessenger.of(context).showSnackBar(
@@ -320,7 +340,20 @@ class _DahUserState extends State<DahUser> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Sign In'),
-        backgroundColor: Color(0xff259e73), // Adjust the color of the app bar
+        backgroundColor: Color(0xff259e73),
+        actions: [
+          // Add a logout button to the top-right corner of the AppBar
+          IconButton(
+            icon: Icon(Icons.logout),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => SignIn()),
+              );              // Implement your logout logic here
+              // You can navigate to the login screen or perform any other logout actions
+            },
+          ),
+        ],// Adjust the color of the app bar
       ),
       body: Center(
         child: Column(
